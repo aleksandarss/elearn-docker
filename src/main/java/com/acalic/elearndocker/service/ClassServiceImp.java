@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
@@ -24,7 +25,12 @@ public class ClassServiceImp implements ClassService {
 
     @Override
     public Class getClass(Long id) {
-        return classRepo.getById(id);
+        Class classToReturn = classRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "class with id " + id + " does not exist"
+                ));
+
+        return classToReturn;
     }
 
     @Override
@@ -36,7 +42,7 @@ public class ClassServiceImp implements ClassService {
     @Transactional
     public Class updateClass(Long id, String title, String text) {
         Class classToUpdate = classRepo.findById(id)
-                .orElseThrow(() -> new IllegalStateException(
+                .orElseThrow(() -> new EntityNotFoundException(
                         "class with id " + id + " does not exist"
                 ));
 
@@ -58,7 +64,7 @@ public class ClassServiceImp implements ClassService {
     @Override
     public void deleteClass(Long id) {
         Class classToDelete = classRepo.findById(id)
-                .orElseThrow(() -> new IllegalStateException(
+                .orElseThrow(() -> new EntityNotFoundException(
                         "class with id " + id + " does not exist"
                 ));
 

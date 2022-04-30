@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
@@ -24,7 +25,12 @@ public class CourseServiceImp implements CourseService {
 
     @Override
     public Course getCourse(Long id) {
-        return courseRepo.getById(id);
+        Course course = courseRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "course with id " + id + " does not exist"
+                ));
+
+        return course;
     }
 
     @Override
@@ -35,7 +41,7 @@ public class CourseServiceImp implements CourseService {
     @Override
     public Course updateCourse(Long id, String name, String description) {
         Course course = courseRepo.findById(id)
-                .orElseThrow(() -> new IllegalStateException(
+                .orElseThrow(() -> new EntityNotFoundException(
                         "course with id " + id + " does not exist"
                 ));
 
@@ -57,7 +63,7 @@ public class CourseServiceImp implements CourseService {
     @Override
     public void deleteCourse(Long id) {
         Course course = courseRepo.findById(id)
-                .orElseThrow(() -> new IllegalStateException(
+                .orElseThrow(() -> new EntityNotFoundException(
                         "course with id " + id + " does not exist"
                 ));
 

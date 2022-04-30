@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
@@ -24,6 +25,11 @@ public class TestServiceImp implements TestService {
 
     @Override
     public Test getTest(Long id) {
+        Test test = testRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "test with id " + id + " does not exist"
+                ));
+
         return testRepo.getById(id);
     }
 
@@ -35,7 +41,7 @@ public class TestServiceImp implements TestService {
     @Override
     public Test updateTest(Long id, String title, String text, int total_points) {
         Test test = testRepo.findById(id)
-                .orElseThrow(() -> new IllegalStateException(
+                .orElseThrow(() -> new EntityNotFoundException(
                         "test with id " + id + " does not exist"
                 ));
 
@@ -62,7 +68,7 @@ public class TestServiceImp implements TestService {
     @Override
     public void deleteTest(Long id) {
         Test test = testRepo.findById(id)
-                .orElseThrow(() -> new IllegalStateException(
+                .orElseThrow(() -> new EntityNotFoundException(
                         "test with id " + id + " does not exist"
                 ));
 
