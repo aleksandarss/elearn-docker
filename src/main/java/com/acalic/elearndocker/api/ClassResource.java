@@ -1,7 +1,9 @@
 package com.acalic.elearndocker.api;
 
 import com.acalic.elearndocker.domain.Class;
+import com.acalic.elearndocker.domain.Course;
 import com.acalic.elearndocker.service.ClassServiceImp;
+import com.acalic.elearndocker.service.CourseServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +14,11 @@ import java.net.URI;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "api/class")
+@RequestMapping(path = "class")
 public class ClassResource {
 
     private final ClassServiceImp classServiceImp;
+    private final CourseServiceImp courseServiceImp;
 
     @PostMapping
     public ResponseEntity<Class> createClass(@RequestBody Class classToCreate) {

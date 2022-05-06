@@ -18,6 +18,7 @@ public class Test {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
+    @Column(columnDefinition="TEXT")
     private String text;
     private int total_points;
     @OneToMany(mappedBy = "test")

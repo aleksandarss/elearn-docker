@@ -19,6 +19,7 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    @Column(columnDefinition="TEXT")
     private String description;
     @OneToMany(mappedBy = "course")
     private Set<Test> tests = new HashSet<>();
@@ -28,5 +29,5 @@ public class Course {
     @JoinColumn(name = "teacher_id")
     private User teacher;
     @OneToMany(mappedBy = "course")
-    Set<TakeCourse> take_course;
+    Set<TakeCourse> take_course = new HashSet<>();
 }

@@ -1,6 +1,7 @@
 package com.acalic.elearndocker.api;
 
 import com.acalic.elearndocker.domain.Course;
+import com.acalic.elearndocker.domain.TakeCourse;
 import com.acalic.elearndocker.service.CourseServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import java.net.URI;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "api/course")
+@RequestMapping(path = "course")
 public class CourseResource {
     private final CourseServiceImp courseServiceImp;
 
@@ -20,6 +21,12 @@ public class CourseResource {
     public ResponseEntity<Course> createCourse(@RequestBody Course course) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/course").toUriString());
         return ResponseEntity.created(uri).body(courseServiceImp.saveCourse(course));
+    }
+
+    @PostMapping(path = "/start")
+    public ResponseEntity<TakeCourse> startCourse(@RequestBody TakeCourse takeCourse) {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/course/start").toUriString());
+        return ResponseEntity.created(uri).body(courseServiceImp.startCourse(takeCourse));
     }
 
     @GetMapping(path = "{course_id}")

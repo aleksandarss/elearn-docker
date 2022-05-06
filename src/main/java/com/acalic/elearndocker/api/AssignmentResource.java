@@ -12,7 +12,7 @@ import java.net.URI;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "api/assignment")
+@RequestMapping(path = "assignment")
 public class AssignmentResource {
 
     private final AssignmentServiceImp assignmentServiceImp;

@@ -10,15 +10,10 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="\"class\"")
-public class Class {
+@Table(name="\"roles\"")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String title;
-    @Column(columnDefinition="TEXT")
-    private String text;
-    @ManyToOne
-    @JoinColumn(name = "course_id", nullable = false)
-    private Course course;
+    private String name;
 }

@@ -13,7 +13,7 @@ import java.net.URI;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "api/test")
+@RequestMapping(path = "test")
 public class TestResource {
     private final TestServiceImp testServiceImp;
 

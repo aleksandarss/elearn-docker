@@ -1,7 +1,9 @@
 package com.acalic.elearndocker.service;
 
 import com.acalic.elearndocker.domain.Course;
+import com.acalic.elearndocker.domain.TakeCourse;
 import com.acalic.elearndocker.repo.CourseRepo;
+import com.acalic.elearndocker.repo.TakeCourseRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import java.util.Objects;
 @Slf4j
 public class CourseServiceImp implements CourseService {
     private final CourseRepo courseRepo;
+    private final TakeCourseRepo takeCourseRepo;
 
     @Override
     public Course saveCourse(Course course) {
@@ -69,4 +72,11 @@ public class CourseServiceImp implements CourseService {
 
         courseRepo.deleteById(id);
     }
+
+    @Override
+    public TakeCourse startCourse(TakeCourse takeCourse) {
+        return takeCourseRepo.save(takeCourse);
+    }
+
+
 }
